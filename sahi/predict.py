@@ -202,28 +202,28 @@ def get_sliced_prediction(
         overlap_height_ratio=overlap_height_ratio,
         overlap_width_ratio=overlap_width_ratio,
         auto_slice_resolution=auto_slice_resolution,
-    )
-    num_slices = len(slice_image_result)
+    ) # 获得切好的小图
+    num_slices = len(slice_image_result) # 获取切好的小图的数量
     time_end = time.time() - time_start
-    durations_in_seconds["slice"] = time_end
+    durations_in_seconds["slice"] = time_end # 记录切图的时间
 
     # init match postprocess instance
     if postprocess_type not in POSTPROCESS_NAME_TO_CLASS.keys():
         raise ValueError(
             f"postprocess_type should be one of {list(POSTPROCESS_NAME_TO_CLASS.keys())} but given as {postprocess_type}"
-        )
+        ) # postprocess_type：合并bounding box的方式
     elif postprocess_type == "UNIONMERGE":
         # deprecated in v0.9.3
         raise ValueError("'UNIONMERGE' postprocess_type is deprecated, use 'GREEDYNMM' instead.")
-    postprocess_constructor = POSTPROCESS_NAME_TO_CLASS[postprocess_type]
+    postprocess_constructor = POSTPROCESS_NAME_TO_CLASS[postprocess_type] # 淦，这玩意是个类
     postprocess = postprocess_constructor(
         match_threshold=postprocess_match_threshold,
         match_metric=postprocess_match_metric,
         class_agnostic=postprocess_class_agnostic,
-    )
+    )# 初始化一个合并bounding box的类
 
     # create prediction input
-    num_group = int(num_slices / num_batch)
+    num_group = int(num_slices / num_batch) # 小图数量 / batch_size
     if verbose == 1 or verbose == 2:
         tqdm.write(f"Performing prediction on {num_slices} number of slices.")
     object_prediction_list = []
