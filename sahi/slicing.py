@@ -13,6 +13,8 @@ from PIL import Image
 from shapely.errors import TopologicalError
 from tqdm import tqdm
 
+import sys
+sys.path.append('/Users/jerryw/Desktop/code/pytorch/sahi')
 from sahi.utils.coco import Coco, CocoAnnotation, CocoImage, create_coco_dict
 from sahi.utils.cv import read_image_as_pil
 from sahi.utils.file import load_json, save_json
