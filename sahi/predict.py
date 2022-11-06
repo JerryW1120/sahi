@@ -215,7 +215,7 @@ def get_sliced_prediction(
     elif postprocess_type == "UNIONMERGE":
         # deprecated in v0.9.3
         raise ValueError("'UNIONMERGE' postprocess_type is deprecated, use 'GREEDYNMM' instead.")
-    postprocess_constructor = POSTPROCESS_NAME_TO_CLASS[postprocess_type] # 淦，这玩意是个类
+    postprocess_constructor = POSTPROCESS_NAME_TO_CLASS[postprocess_type] # 这玩意是个字典，里面的key代表的是合并bbox的算法(NMS等)
     postprocess = postprocess_constructor(
         match_threshold=postprocess_match_threshold,
         match_metric=postprocess_match_metric,

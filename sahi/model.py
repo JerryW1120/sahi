@@ -1083,3 +1083,9 @@ class TorchVisionDetectionModel(DetectionModel):
             object_prediction_list_per_image.append(object_prediction_list)
 
         self._object_prediction_list_per_image = object_prediction_list_per_image
+
+class Yolov5_3_2DetectionModel(Yolov5DetectionModel)
+    def load_model(self):
+        model = attempt_load(weights, map_location=device)  # load FP32 model
+        imgsz = check_img_size(imgsz, s=model.stride.max())  # check img_size
+        
